@@ -10,5 +10,7 @@ The mod will output index, follow robots tags for all the content found under th
 
 You should not use more than 20 keywords in the keyword meta tags. As well, you should not use too long description tags.
 
-Support Community:
-www.phpbb-seo.org/community/
+<b>Working on phpBB 3.2</b>
+
+<b>Support Community:</b>
+<br /> www.phpbb-seo.org/community/
