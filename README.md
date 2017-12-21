@@ -1,4 +1,4 @@
-# dynamic-meta-tags
+# Dynamic Meta Tags phpBB SEO
 This extension will add dynamic meta tags build out with the ending page’s content.
 It’s simple and efficient, will add specific meta tags to all phpBB pages.
 A single SQL query is optionally added in viewtopic.php, to grab the first post’s most used words (common words are excluded).
