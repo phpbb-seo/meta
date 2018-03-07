@@ -511,13 +511,13 @@ class core
 	*/
 	public static function soft_escape($string)
     {
-	$text = $string;
-	$text = censor_text($text);
-	strip_bbcode($text);
-	$text = str_replace(array("&quot;", "/", "\n", "\t", "\r"), ' ', $text);
-	$text = preg_replace(array("|http(.*)jpg|isU", "@(http(s)?://)?(([a-z0-9.-]+)?[a-z0-9-]+(!?\.[a-z]{2,4}))@"), ' ', $text);
-	$text=preg_replace('/\b(https?|ftp|file):/i', '', $text);
-	$text = trim(preg_replace("/[^A-ZА-ЯЁ.,-–?]+/ui", " ", $text));
-	return $text;
+    	$text = $string;
+    	$text = censor_text($text);
+	    strip_bbcode($text);
+    	$text = str_replace(array("&quot;", "/", "\n", "\t", "\r"), ' ', $text);
+     	$text = preg_replace(array("|http(.*)jpg|isU", "@(http(s)?://)?(([a-z0-9.-]+)?[a-z0-9-]+(!?\.[a-z]{2,4}))@"), ' ', $text);
+    	$text=preg_replace('/\b(https?|ftp|file):/i', '', $text);
+    	$text = trim(preg_replace("/[^A-ZА-ЯЁ.,-–?]+/ui", " ", $text));
+    	return $text;
     }
 }
