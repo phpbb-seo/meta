@@ -510,8 +510,14 @@ class core
 	* same as htmlspecialchars but without "&" double encoding
 	*/
 	public static function soft_escape($string)
-	{
-		static $find = array('<', '>', '"'), $replace = array('&lt;', '&gt;', '&quot;');
-		return str_replace($find, $replace, preg_replace('`&(?!([a-z0-9]+;))`', '&amp;', $string));
-	}
+    {
+	$text = $string;
+	$text = censor_text($text);
+	strip_bbcode($text);
+	$text = str_replace(array("&quot;", "/", "\n", "\t", "\r"), ' ', $text);
+	$text = preg_replace(array("|http(.*)jpg|isU", "@(http(s)?://)?(([a-z0-9.-]+)?[a-z0-9-]+(!?\.[a-z]{2,4}))@"), ' ', $text);
+	$text=preg_replace('/\b(https?|ftp|file):/i', '', $text);
+	$text = trim(preg_replace("/[^A-ZА-ЯЁ.,-–?]+/ui", " ", $text));
+	return $text;
+    }
 }
