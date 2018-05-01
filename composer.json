@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "This extension will add dynamic meta tags build out with the ending page’s content. ",
     "homepage": "http://www.phpbb-seo.org",
-    "version": "2.0.0-b1",
+    "version": "2.0.0-b2",
 	"keywords": ["phpbbSEO", "extension", "seo", "meta","auto tag"],
     "time": "2017-12-20",
     "license": "GPL-2.0",
