@@ -10,6 +10,10 @@
 
 namespace phpbbseo\meta\event;
 
+use phpbbseo\meta\core;
+use phpbb\db\driver\driver_interface;
+use phpbbseo\usu\core;
+
 /**
 * @ignore
 */
@@ -33,11 +37,11 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbbseo\meta\core			$core				meta core object
+	* @param \phpbbseo\meta\core				$core			meta core object
 	* @param \phpbb\db\driver\driver_interface	$db				Database object
-	* @param \phpbbseo\usu\core			$usu_core			usu core objec
+	* @param \phpbbseo\usu\core					$usu_core		usu core objec
 	*/
-	public function __construct(\phpbbseo\meta\core $core, \phpbb\db\driver\driver_interface $db, \phpbbseo\usu\core $usu_core = null)
+	public function __construct(core $core, driver_interface $db, core $usu_core = null)
 	{
 		$this->core = $core;
 		$this->db = $db;
@@ -47,11 +51,11 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.page_footer'			=> 'core_page_footer',
+			'core.page_footer'					=> 'core_page_footer',
 			'core.index_modify_page_title'		=> 'core_index_modify_page_title',
 			'core.viewforum_modify_topics_data'	=> 'core_viewforum_modify_topics_data',
 			'core.viewtopic_modify_post_row'	=> 'core_viewtopic_modify_post_row',
-			'core.page_header'			=> 'core_page_header',
+			'core.page_header'					=> 'core_page_header',
 		);
 	}
 
@@ -77,7 +81,7 @@ class listener implements EventSubscriberInterface
 
 	public function core_viewforum_modify_topics_data($event)
 	{
-		global $forum_data; // god save the hax
+		global $forum_data;
 
 		$this->core->collect('description', $forum_data['forum_name'] . ' : ' . (!empty($forum_data['forum_desc']) ? $forum_data['forum_desc'] : $this->core->meta_def['description']));
 		$this->core->collect('keywords', $forum_data['forum_name'] . ' ' . $this->core->meta['description']);
@@ -85,7 +89,7 @@ class listener implements EventSubscriberInterface
 
 	public function core_viewtopic_modify_post_row($event)
 	{
-		global $post_list; // god save the hax
+		global $post_list;
 
 		if ($event['current_row_number'] == 0)
 		{
