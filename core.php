@@ -10,6 +10,11 @@
 
 namespace phpbbseo\meta;
 
+use phpbb\config\config;
+use phpbb\template\template;
+use phpbb\user;
+use phpbb\symfony_request;
+
 /**
 * core Class
 * www.phpBB-SEO.org
@@ -40,11 +45,11 @@ class core
 	**/
 	public $config = array(
 		'keywordlimit'		=> 15,
-		'wordlimit'		=> 25,
+		'wordlimit'			=> 25,
 		'wordminlen'		=> 2,
 		'bbcodestrip'		=> 'img|url|flash|code',
-		'ellipsis'		=> ' ...',
-		'topic_sql'		=> true,
+		'ellipsis'			=> ' ...',
+		'topic_sql'			=> true,
 		'check_ignore'		=> false,
 		'bypass_common'		=> true,
 		// Consider adding ", 'p' => 1" if your forum is no indexed yet or if no post urls are to be redirected
@@ -53,8 +58,8 @@ class core
 		// noindex based on physical script file name
 		'file_filter'		=> 'ucp',
 		// open graph (fb)
-		'og'			=> 1,
-		'fb_app_id'		=> '',
+		'og'				=> 1,
+		'fb_app_id'			=> '',
 	);
 	/* Limit in chars for the last post link text. */
 	public $char_limit = 25;
@@ -66,14 +71,14 @@ class core
 			'fields' => array(
 				// local name		=> global alias
 				'content-language'	=> 'lang',
-				'title'			=> 'title',
+				'title'				=> 'title',
 				'description'		=> 'description',
-				'keywords'		=> 'keywords',
-				'category'		=> 'category',
-				'robots'		=> 'robots',
+				'keywords'			=> 'keywords',
+				'category'			=> 'category',
+				'robots'			=> 'robots',
 				'distribution'		=> 'distribution',
 				'resource-type'		=> 'resource-type',
-				'copyright'		=> 'copyright',
+				'copyright'			=> 'copyright',
 			),
 			'mask' => '<meta name="%1$s" content="%2$s" />',
 		),
@@ -81,13 +86,13 @@ class core
 			// here you can comment a tag line to deactivate it
 			'fields'	=> array(
 				// local name		=> global alias
-				'og:title'		=> 'title',
+				'og:title'			=> 'title',
 				'og:site_name'		=> 'sitename',
-				'og:url'		=> 'canonical',
+				'og:url'			=> 'canonical',
 				'og:description'	=> 'description',
-				'og:locale'		=> 'lang',
-				'og:image'		=> 'image',
-				'fb:app_id'		=> 'fb:app_id',
+				'og:locale'			=> 'lang',
+				'og:image'			=> 'image',
+				'fb:app_id'			=> 'fb:app_id',
 			),
 			'mask'		=> '<meta property="%1$s" content="%2$s" />',
 			'filters'	=> array(
@@ -98,13 +103,13 @@ class core
 
 	public $meta = array(
 		'title'			=> '',
-		'description'		=> '',
+		'description'	=> '',
 		'keywords'		=> '',
 		'lang'			=> '',
 		'category'		=> '',
 		'robots'		=> '',
-		'distribution'		=> '',
-		'resource-type'		=> '',
+		'distribution'	=> '',
+		'resource-type'	=> '',
 		'copyright'		=> '',
 	);
 
@@ -132,21 +137,21 @@ class core
 	protected $php_ext;
 
 	protected $filters = array(
-		'description'		=> 'meta_filter_txt',
+		'description'	=> 'meta_filter_txt',
 		'keywords'		=> 'make_keywords'
 	);
 
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config				$config				Config object
-	* @param \phpbb\template\template			$template			Template object
+	* @param \phpbb\config\config			$config				Config object
+	* @param \phpbb\template\template		$template			Template object
 	* @param \phpbb\user					$user				User object
-	* @param \phpbb\symfony_request				$symfony_request
-	* @param string						$phpbb_root_path		Path to the phpBB root
-	* @param string						$php_ext			PHP file extension
+	* @param \phpbb\symfony_request			$symfony_request
+	* @param string							$phpbb_root_path	Path to the phpBB root
+	* @param string							$php_ext			PHP file extension
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, \phpbb\symfony_request $symfony_request, $phpbb_root_path, $php_ext)
+	public function __construct(config $config, template $template, user $user, symfony_request $symfony_request, $phpbb_root_path, $php_ext)
 	{
 		$this->user = $user;
 		$this->template = $template;
@@ -246,7 +251,7 @@ class core
 	}
 
 	/**
-	* assign / retrun meta tag code
+	* assign / return meta tag code
 	*/
 	public function build_meta($page_title = '', $return = false)
 	{
@@ -256,7 +261,7 @@ class core
 			// Full request URI (e.g. phpBB/app.php/foo/bar)
 			$request_uri = $this->symfony_request->getRequestUri();
 
-			// Deny indexing for any url ending with htm(l) or / aznd with a qs (?)
+			// Deny indexing for any url ending with htm(l) or / and with a qs (?)
 			if (preg_match('`(\.html?|/)\?[^\?]*$`i', $request_uri))
 			{
 				$this->meta['robots'] = 'noindex,follow';
@@ -398,7 +403,7 @@ class core
 	*/
 	public function make_keywords($text)
 	{
-		// we add ’ to the num filter because it does not seems to always be cought by punct
+		// we add ’ to the num filter because it does not seems to always be caught by punct
 		// and it is widely used in languages files
 		static $filter = array('`<[^>]*>(.*<[^>]*>)?`Usi', '`[[:punct:]]+`', '`[0-9’]+`',  '`[\s]{2,}`');
 
