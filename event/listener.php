@@ -12,7 +12,7 @@ namespace phpbbseo\meta\event;
 
 use phpbbseo\meta\core;
 use phpbb\db\driver\driver_interface;
-use phpbbseo\usu\core;
+use phpbbseo\usu\core\core;
 
 /**
 * @ignore
