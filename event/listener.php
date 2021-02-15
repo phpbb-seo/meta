@@ -12,7 +12,7 @@ namespace phpbbseo\meta\event;
 
 use phpbbseo\meta\core;
 use phpbb\db\driver\driver_interface;
-use phpbbseo\usu\core\core;
+use phpbbseo\usu\core\core as usu_core;
 
 /**
 * @ignore
@@ -39,9 +39,9 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbbseo\meta\core				$core			meta core object
 	* @param \phpbb\db\driver\driver_interface	$db				Database object
-	* @param \phpbbseo\usu\core					$usu_core		usu core objec
+	* @param \phpbbseo\usu\core\core					$usu_core		usu core objec
 	*/
-	public function __construct(core $core, driver_interface $db, core $usu_core = null)
+	public function __construct(core $core, driver_interface $db, usu_core $usu_core = null)
 	{
 		$this->core = $core;
 		$this->db = $db;
